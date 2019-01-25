@@ -1,4 +1,4 @@
-package com.bg.test;
+package com.bgshk.testTask;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,10 +16,10 @@ public class MainClass {
 
         //Adding to the db
 
-        *//*Department departmentIT = new Department();
+        *//*DepartmentEntity departmentIT = new DepartmentEntity();
         departmentIT.setName("IT");
 
-        Department departmentHR = new Department();
+        DepartmentEntity departmentHR = new DepartmentEntity();
         departmentHR.setName("HR");*//*
 
         *//*entityManager.persist(departmentIT);
@@ -27,7 +27,7 @@ public class MainClass {
 
         //Find and update the name of department
 
-        *//*Department department = entityManager.find(Department.class, 1);
+        *//*DepartmentEntity department = entityManager.find(DepartmentEntity.class, 1);
         department.setName("IT");*//*
 
         entityManager.getTransaction().commit();

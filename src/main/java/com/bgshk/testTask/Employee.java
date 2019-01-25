@@ -1,4 +1,4 @@
-package com.bg.test;
+package com.bgshk.testTask;
 
 import javax.persistence.*;
 
@@ -18,7 +18,7 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "departments.id")
-    private Department department;
+    private DepartmentEntity departmentEntity;
 
     public Employee(){}
 

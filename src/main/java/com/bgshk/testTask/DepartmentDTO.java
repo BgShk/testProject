@@ -1,4 +1,4 @@
-package com.bg.test;
+package com.bgshk.testTask;
 
 public class DepartmentDTO {
 
