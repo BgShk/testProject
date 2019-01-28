@@ -1,4 +1,4 @@
-package com.bg.test;
+package com.bgshk.testTask;
 
 import org.springframework.data.repository.CrudRepository;
 
