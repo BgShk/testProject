@@ -1,6 +1,9 @@
 package com.bgshk.testTask;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,27 +24,27 @@ public class DepartmentsController {
     }
 
     @GetMapping("{name}")
-    public @ResponseBody String department(@PathVariable(name = "name") String name){
-        return departmentService.getDepartmentByName(name);
+    public @ResponseBody ResponseEntity<DepartmentDTO> department(@PathVariable(name = "name") String name){
+       return new ResponseEntity<>(departmentService.getDepartmentByName(name), HttpStatus.OK);
     }
 
    @PostMapping
-   public @ResponseBody String add(@RequestBody DepartmentEntity d){
-        return SAVED + departmentService.save(d);
+   public ResponseEntity<DepartmentDTO> add(@RequestBody DepartmentEntity d){
+        return new ResponseEntity<>(departmentService.save(d), HttpStatus.CREATED);
    }
 
    @PutMapping("{name}")
-   public @ResponseBody String putUpdate(@PathVariable(name = "name") String name, @RequestBody DepartmentEntity departmentEntity){
-        return UPDATED_TO + departmentService.putUpdate(name, departmentEntity);
+   public @ResponseBody ResponseEntity<DepartmentDTO> putUpdate(@PathVariable(name = "name") String name, @RequestBody DepartmentEntity departmentEntity){
+        return new ResponseEntity<>(departmentService.putUpdate(name, departmentEntity), HttpStatus.OK);
    }
 
    @PatchMapping("{name}")
-   public @ResponseBody String update(@PathVariable(name = "name") String name, @RequestBody DepartmentEntity departmentEntity){
-       return RENAMED_TO + departmentService.update(name, departmentEntity);
+   public @ResponseBody ResponseEntity<DepartmentDTO> update(@PathVariable(name = "name") String name, @RequestBody DepartmentEntity departmentEntity){
+       return new ResponseEntity<>(departmentService.update(name, departmentEntity), HttpStatus.OK);
    }
 
    @DeleteMapping("{name}")
-   public @ResponseBody void delete(@PathVariable(name = "name") String name){
+   public void delete(@PathVariable(name = "name") String name){
         departmentService.delete(name);
    }
 

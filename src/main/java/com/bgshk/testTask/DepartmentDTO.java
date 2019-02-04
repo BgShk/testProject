@@ -1,22 +1,34 @@
 package com.bgshk.testTask;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class DepartmentDTO {
 
+    @Getter
     private String name;
 
-    public DepartmentDTO() { }
+    public static class Builder{
 
-    public DepartmentDTO(String name) {
-        this.name = name;
+        private String name;
+
+        public Builder setName(String name){
+            this.name = name;
+
+            return this;
+        }
+
+        public DepartmentDTO build(){
+            DepartmentDTO dto = new DepartmentDTO();
+
+            dto.name = name;
+
+            return dto;
+        }
+
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private DepartmentDTO() { }
 
 }
 

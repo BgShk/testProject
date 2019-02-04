@@ -7,6 +7,6 @@ public final class Consts {
     public static final String RENAMED_TO = "Renamed to";
     public static final String SAVED = "Saved";
 
-    private Consts(){}
+    private Consts() throws Exception { throw new Exception("Cannot create an instance of the Consts's class!");}
 
 }

@@ -2,6 +2,7 @@ package com.bgshk.testTask;
 
 import lombok.Getter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,48 +17,54 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     //TODO: Rewrite getDepartment method
 
-    @Getter
     private DepartmentsRepository departmentsRepository;
 
-    @Getter
     private EmployeeRepository employeeRepository;
 
-    public DepartmentServiceImpl(DepartmentsRepository departmentsRepository){
+    @Autowired
+    public DepartmentServiceImpl(DepartmentsRepository departmentsRepository, EmployeeRepository employeeRepository){
         this.departmentsRepository = departmentsRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public List<DepartmentDTO> getAll(){
         Iterable<DepartmentEntity> iterable = departmentsRepository.findAll();
-        List<DepartmentDTO> list = StreamSupport.stream(iterable.spliterator(), false).map(dp -> new DepartmentDTO(dp.getName())).collect(Collectors.toList());
+        List<DepartmentDTO> list = StreamSupport.stream(iterable.spliterator(), false).map(dp -> new DepartmentDTO.Builder().setName(dp.getName()).build()).collect(Collectors.toList());
 
         return list;
     }
 
-    public String getDepartmentByName(String name){
+    public DepartmentDTO getDepartmentByName(String name){
         DepartmentEntity d = departmentsRepository.findDepartmentByName(name);
-        if (Objects.isNull(d)) return NOT_FOUND;
+        if (Objects.isNull(d)) return null;
 
-        return departmentsRepository.findDepartmentByName(name).toString();
+        return new DepartmentDTO.Builder().setName(d.getName()).build();
     }
 
-    public DepartmentEntity save(DepartmentEntity departmentEntity){
-        return departmentsRepository.save(departmentEntity);
+    public DepartmentDTO save(DepartmentEntity departmentEntity){
+
+        DepartmentEntity d = departmentsRepository.save(departmentEntity);
+
+        return new DepartmentDTO.Builder().setName(d.getName()).build();
     }
 
-    public String putUpdate(String name, DepartmentEntity departmentEntity){
+    public DepartmentDTO putUpdate(String name, DepartmentEntity departmentEntity){
         DepartmentEntity d = departmentsRepository.findDepartmentByName(name);
-        if (Objects.isNull(d)) return NOT_FOUND;
 
-        return  departmentsRepository.save(new DepartmentEntity(d.getId(), departmentEntity.getName())).toString();
+        if (Objects.isNull(d)) return null;
+
+        departmentsRepository.save( new DepartmentEntity.Builder().setId(d.getId()).setName(departmentEntity.getName()).build());
+
+        return new DepartmentDTO.Builder().setName(departmentEntity.getName()).build();
     }
 
-    public String update(String name, DepartmentEntity departmentEntity){
+    public DepartmentDTO update(String name, DepartmentEntity departmentEntity){
         DepartmentEntity d = departmentsRepository.findDepartmentByName(name);
-        if (Objects.isNull(d)) return NOT_FOUND;
+        if (Objects.isNull(d)) return null;
 
+        departmentsRepository.save( new DepartmentEntity.Builder().setId(d.getId()).setName(departmentEntity.getName()).build());
 
-        d.setName(departmentEntity.getName());
-        return departmentsRepository.save(departmentEntity).toString();
+        return new DepartmentDTO.Builder().setName(departmentEntity.getName()).build();
     }
 
     public void delete(String name){

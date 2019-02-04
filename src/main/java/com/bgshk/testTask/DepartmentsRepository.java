@@ -6,3 +6,4 @@ public interface DepartmentsRepository extends CrudRepository<DepartmentEntity, 
 
     DepartmentEntity findDepartmentByName(String name);
 }
+

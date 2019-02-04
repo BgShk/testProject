@@ -17,7 +17,6 @@ public class Employee {
     private String lastName;
 
     @ManyToOne
-    @JoinColumn(name = "departments.id")
     private DepartmentEntity departmentEntity;
 
     public Employee(){}

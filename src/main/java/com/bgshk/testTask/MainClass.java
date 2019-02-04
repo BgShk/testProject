@@ -1,7 +1,11 @@
 package com.bgshk.testTask;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import sun.tools.jar.CommandLine;
+
+import java.util.stream.Stream;
 
 @SpringBootApplication
 public class MainClass {
@@ -36,4 +40,6 @@ public class MainClass {
         entityManagerFactory.close();*/
 
     }
+
+
 }
