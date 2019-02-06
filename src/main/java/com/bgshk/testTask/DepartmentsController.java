@@ -11,6 +11,7 @@ import static com.bgshk.testTask.Consts.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @RequestMapping("/departments")
 public class DepartmentsController {
@@ -44,7 +45,7 @@ public class DepartmentsController {
    }
 
    @DeleteMapping("{name}")
-   public void delete(@PathVariable(name = "name") String name){
+   public @ResponseBody void delete(@PathVariable(name = "name") String name){
         departmentService.delete(name);
    }
 
